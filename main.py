@@ -33,9 +33,10 @@ async def enviar_mensagem():
     global envios_realizados
 
     agora = datetime.datetime.now()
-    horario_envio = agora.replace(hour=19, minute=36, second=0, microsecond=0)
+    horario_envio = agora.replace(hour=20, minute=23, second=7, microsecond=7)
 
-    if agora >= horario_envio and agora <= horario_envio + datetime.timedelta(minutes=1):
+    # Verificar se é dia útil (segunda a sexta)
+    if agora.weekday() < 5 and agora >= horario_envio and agora <= horario_envio + datetime.timedelta(minutes=1):
         channel_id = 1113433596934504579  # ID do canal
         channel = bot.get_channel(channel_id)
 
