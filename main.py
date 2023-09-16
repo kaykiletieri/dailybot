@@ -26,7 +26,14 @@ random.seed()
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} está conectado! hora:{datetime.datetime.now()}')
+
     enviar_mensagem.start()
+    channel_id = 1113433596934504579
+    channel = bot.get_channel(channel_id)
+
+    if channel:
+        # Envia a mensagem
+        await channel.send(f'{bot.user.name} está online!')
 
 @tasks.loop(minutes=1)
 async def enviar_mensagem():
