@@ -14,6 +14,9 @@ with open('config.json', 'r') as config_file:
 
 bot = commands.Bot(command_prefix='/', intents=intents)
 
+# Carregar os comandos de slash
+bot.load_extension("slash_commands")
+
 # Kayki, David, Cesar, Vitor, Jonatas, Joao Henrique, Jessica
 membros = [512012088013619243, 577980969374449684, 851799475617005608, 1009869447143620728, 737819749756698745, 1148938354793123981, 808328918603268207]
 # Equipe Regulatorio, Equipe Pld
@@ -83,10 +86,6 @@ def sortear_proximo_membro():
 
     membros_sorteados.append(member_id)
     return f'<@{member_id}>'
-
-@bot.command()
-async def hello(ctx):
-    await ctx.send('Este é um comando de teste!')
 
 @bot.event
 async def on_message(message):
