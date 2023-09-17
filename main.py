@@ -3,7 +3,6 @@ from discord.ext import commands, tasks
 import random
 import datetime
 import json
-import asyncio
 
 intents = discord.Intents.default()
 intents.typing = False
@@ -14,9 +13,7 @@ with open('config.json', 'r') as config_file:
 
 bot = commands.Bot(command_prefix='/', intents=intents)
 
-# Carregar os comandos de slash
-bot.load_extension("slash_commands")
-
+channel_id = 1113433596934504579
 # Kayki, David, Cesar, Vitor, Jonatas, Joao Henrique, Jessica
 membros = [512012088013619243, 577980969374449684, 851799475617005608, 1009869447143620728, 737819749756698745, 1148938354793123981, 808328918603268207]
 # Equipe Regulatorio, Equipe Pld
@@ -31,7 +28,6 @@ async def on_ready():
     print(f'{bot.user.name} está conectado! hora:{datetime.datetime.now()}')
 
     enviar_mensagem.start()
-    channel_id = 1113433596934504579
     channel = bot.get_channel(channel_id)
 
     if channel:
@@ -47,7 +43,6 @@ async def enviar_mensagem():
 
     # Verificar se é dia útil (segunda a sexta)
     if agora.weekday() < 5 and agora >= horario_envio and agora <= horario_envio + datetime.timedelta(minutes=1):
-        channel_id = 1113433596934504579  # ID do canal
         channel = bot.get_channel(channel_id)
 
         if channel:
