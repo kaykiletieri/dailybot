@@ -40,7 +40,7 @@ async def enviar_mensagem():
 
     fuso_horario_sao_paulo = pytz.timezone('America/Sao_Paulo')
     agora = datetime.datetime.now(fuso_horario_sao_paulo)
-    horario_envio = agora.replace(hour=20, minute=23, second=7, microsecond=7)
+    horario_envio = agora.replace(hour=8, minute=23, second=7, microsecond=7)
 
     # Verificar se é dia útil (segunda a sexta)
     if agora.weekday() < 5 and agora >= horario_envio and agora <= horario_envio + datetime.timedelta(minutes=1):
