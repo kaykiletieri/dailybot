@@ -3,6 +3,7 @@ from discord.ext import commands, tasks
 import random
 import datetime
 import json
+import pytz
 
 intents = discord.Intents.default()
 intents.typing = False
@@ -12,10 +13,9 @@ with open('config.json', 'r') as config_file:
     config = json.load(config_file)
 
 bot = commands.Bot(command_prefix='/', intents=intents)
-
 channel_id = 1113433596934504579
 # Kayki, David, Cesar, Vitor, Jonatas, Joao Henrique, Jessica
-membros = [512012088013619243, 577980969374449684, 851799475617005608, 1009869447143620728, 737819749756698745, 1148938354793123981, 808328918603268207]
+membros = [577980969374449684, 851799475617005608, 1009869447143620728, 737819749756698745, 1148938354793123981, 808328918603268207, 512012088013619243]
 # Equipe Regulatorio, Equipe Pld
 cargos = [960622553024585839, 1095062418469695488]
 
@@ -38,7 +38,8 @@ async def on_ready():
 async def enviar_mensagem():
     global envios_realizados
 
-    agora = datetime.datetime.now()
+    fuso_horario_sao_paulo = pytz.timezone('America/Sao_Paulo')
+    agora = datetime.datetime.now(fuso_horario_sao_paulo)
     horario_envio = agora.replace(hour=20, minute=23, second=7, microsecond=7)
 
     # Verificar se é dia útil (segunda a sexta)
@@ -81,6 +82,25 @@ def sortear_proximo_membro():
 
     membros_sorteados.append(member_id)
     return f'<@{member_id}>'
+
+
+@bot.command(name='ignorardiautil')
+async def ignorar_proximo_dia_util(ctx):
+    global proximo_dia_util_ignorado
+
+    agora = datetime.datetime.now()
+
+    # Verifica se já é sexta-feira, se sim, pula para a próxima segunda-feira
+    if agora.weekday() == 4:
+        agora += datetime.timedelta(days=3)
+    else:
+        agora += datetime.timedelta(days=1)
+
+    # Define a próxima data de envio
+    proximo_dia_util_ignorado = agora.date()
+
+    await ctx.send(f"O próximo dia útil ({proximo_dia_util_ignorado.strftime('%d/%m/%Y')}) foi marcado como ignorado.")
+
 
 @bot.event
 async def on_message(message):
