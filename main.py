@@ -138,12 +138,12 @@ async def remover_membro(interaction: discord.Interaction):
     await interaction.response.send_message(f'Membro removido com sucesso!')
 
 @bot.command(name='ordem_frase_do_dia')
-async def ordem_frase_do_dia(ctx):
+async def ordem_frase_do_dia(interaction: discord.Interaction):
     global membros, indice_frase_do_dia
 
     lista_ordem = '\n'.join([f"{i+1}. <@{membro_id}>" for i, membro_id in enumerate(membros)])
 
-    await ctx.send(f"A ordem para a frase do dia é:\n{lista_ordem}")
+    await interaction.response.send(f"A ordem para a frase do dia é:\n{lista_ordem}")
 
 @bot.event
 async def on_message(message):
