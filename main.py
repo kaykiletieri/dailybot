@@ -58,7 +58,7 @@ async def enviar_mensagem():
             mensagem = f'Bom diaaa equipe!!!\n' \
                        f'{mencionar_cargos()}\n' \
                        f'Regulatório Daily\'s Definitiva\n' \
-                       f'{agora.strftime("%A, %d de %B")} · 9:00 até 9:15am\n' \
+                       f'{agora.strftime("%A, %d de %B")} · 9:15 até 9:30am\n' \
                        f'Fuso horário: America/Sao_Paulo\n' \
                        f'Como participar do Google Meet\n' \
                        f'Link da videochamada: {link_meet}\n' \
@@ -136,6 +136,14 @@ async def remover_membro(interaction: discord.Interaction):
     global membros
     membros.remove(int(interaction.data['options'][0]['value']))
     await interaction.response.send_message(f'Membro removido com sucesso!')
+
+@bot.command(name='ordem_frase_do_dia')
+async def ordem_frase_do_dia(ctx):
+    global membros, indice_frase_do_dia
+
+    lista_ordem = '\n'.join([f"{i+1}. <@{membro_id}>" for i, membro_id in enumerate(membros)])
+
+    await ctx.send(f"A ordem para a frase do dia é:\n{lista_ordem}")
 
 @bot.event
 async def on_message(message):
