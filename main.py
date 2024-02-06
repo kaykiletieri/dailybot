@@ -137,7 +137,7 @@ async def remover_membro(interaction: discord.Interaction):
     membros.remove(int(interaction.data['options'][0]['value']))
     await interaction.response.send_message(f'Membro removido com sucesso!')
 
-@bot.command(name='ordem_frase_do_dia')
+@bot.tree.command(name='ordem_frase_do_dia')
 async def ordem_frase_do_dia(interaction: discord.Interaction):
     global membros, indice_frase_do_dia
 
