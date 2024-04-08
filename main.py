@@ -4,9 +4,6 @@ import random
 import datetime
 import json
 import pytz
-import locale
-
-locale.setlocale(locale.LC_TIME, 'pt_BR.UTF-8')
 
 intents = discord.Intents.all()
 intents.typing = False
@@ -75,7 +72,7 @@ async def enviar_mensagem():
 
     fuso_horario_sao_paulo = pytz.timezone('America/Sao_Paulo')
     agora = datetime.datetime.now(fuso_horario_sao_paulo)
-    horario_envio = agora.replace(hour=9, minute=0, second=7, microsecond=7)
+    horario_envio = agora.replace(hour=8, minute=57, second=7, microsecond=7)
 
     # Verificar se é o aniversário de alguém
     for pessoa in aniversarios_da_equipe:
@@ -96,7 +93,7 @@ async def enviar_mensagem():
         if channel:
             mensagem = f'{mencionar_cargos()}\n' \
                        f'Regulatório Daily\'s Definitiva\n' \
-                       f'{agora.strftime("%A, %d de %B de %Y")} · 9:15 até 9:30am\n' \
+                       f'{agora.strftime("%A, %d de %B")} · 9:00 até 9:15am\n' \
                        f'[Link da videochamada]({link_meet})\n' \
                        f'Apresentação: {sortear_proximo_membro()}\n' \
                        f'Frase do dia: {mencionar_proximo_membro_frase_do_dia()}'
